@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de" data-theme="light">
 <head>
@@ -127,6 +128,7 @@ header{
 .em.on{display:block}
 
 #ms{flex:1;overflow:hidden;min-height:0}
+body.has-pro-ad #ms{padding-bottom:30vh}
 .tab-pane{display:none;height:100%;overflow:hidden}
 .tab-pane.on{display:flex;flex-direction:column}
 
@@ -438,6 +440,113 @@ svg.sparkline{display:block;width:100%;height:60px}
 ::-webkit-scrollbar-thumb{background:var(--off2);border-radius:var(--rf)}
 ::-webkit-scrollbar-thumb:hover{background:var(--brd)}
 
+/* ─── PRO WERBUNG & POP-UP STYLES ─────────────────────────── */
+.pro-adbar{
+  position:fixed;left:0;right:0;bottom:0;height:30vh;min-height:190px;
+  z-index:75;overflow-y:auto;overflow-x:hidden;
+  background:linear-gradient(135deg,#121316 0%,#201d1a 50%,#2b1a14 100%);
+  color:#f4f4f5;border-top:2px solid color-mix(in oklab,var(--pr) 50%,transparent);
+  box-shadow:0 -12px 36px rgba(0,0,0,.35);
+  display:none;
+}
+.pro-adbar.vis{display:block}
+.pro-ad-inner{
+  max-width:1200px;margin:0 auto;padding:1rem 1.25rem;height:100%;
+  display:grid;grid-template-columns:minmax(200px,.9fr) 2fr auto;
+  align-items:center;gap:1.5rem;box-sizing:border-box;
+}
+.pro-ad-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:800;color:var(--pr);margin-bottom:.35rem;
+}
+.pro-ad-badge::before{
+  content:'';width:7px;height:7px;border-radius:50%;background:var(--pr);box-shadow:0 0 8px var(--pr);
+}
+.pro-ad-title{
+  font-size:clamp(1.15rem,1.8vw,1.6rem);font-weight:900;letter-spacing:-.03em;
+  line-height:1.15;color:#fff;
+}
+.pro-ad-desc{
+  font-size:.825rem;line-height:1.45;color:rgba(255,255,255,.75);margin-bottom:.6rem;
+}
+.pro-ad-list{
+  display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:.45rem 1.25rem;
+  list-style:none;padding:0;margin:0;
+}
+.pro-ad-list li{
+  font-size:.8rem;color:rgba(255,255,255,.92);display:flex;gap:.5rem;align-items:center;
+}
+.pro-ad-list li svg{
+  color:var(--pr);flex-shrink:0;
+}
+.pro-ad-actions{
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;min-width:180px;
+}
+.pro-btn{
+  width:100%;padding:.65rem 1rem;background:var(--pr);color:#fff;
+  border-radius:var(--rm);font-weight:800;font-size:.85rem;letter-spacing:-.01em;
+  text-align:center;transition:background var(--t),transform var(--t),box-shadow var(--t);
+  box-shadow:0 4px 14px rgba(255,70,0,.35);
+}
+.pro-btn:hover{background:var(--ph);transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,70,0,.45)}
+.pro-ad-sub{
+  font-size:.68rem;color:rgba(255,255,255,.5);text-align:center;
+}
+
+/* Modal Popup */
+.pro-popup-backdrop{
+  position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.65);
+  backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;
+  padding:1rem;animation:fadein .2s ease;
+}
+.pro-popup-backdrop.on{display:flex}
+.pro-popup{
+  position:relative;width:100%;max-width:480px;background:var(--sf);
+  border:1px solid var(--div);border-radius:var(--rxl);box-shadow:var(--sh2);
+  padding:1.5rem;color:var(--tx);
+}
+.pro-popup-close{
+  position:absolute;right:.85rem;top:.85rem;width:32px;height:32px;
+  border-radius:var(--rm);display:flex;align-items:center;justify-content:center;
+  color:var(--mt);transition:background var(--t),color var(--t);
+}
+.pro-popup-close:hover{background:var(--off);color:var(--tx)}
+.pro-popup-tag{
+  font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--pr);margin-bottom:.4rem;
+}
+.pro-popup h2{
+  font-size:1.45rem;font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.5rem;
+}
+.pro-popup p{
+  font-size:.85rem;color:var(--mt);line-height:1.5;margin-bottom:1.15rem;
+}
+.pro-features-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.25rem;
+}
+.pro-feature-card{
+  background:var(--s2);border:1px solid var(--div);border-radius:var(--rm);
+  padding:.75rem .65rem;display:flex;flex-direction:column;gap:.25rem;
+}
+.pro-feature-card strong{
+  font-size:.8rem;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:.35rem;
+}
+.pro-feature-card strong svg{color:var(--pr);flex-shrink:0}
+.pro-feature-card span{
+  font-size:.72rem;color:var(--mt);line-height:1.35;
+}
+
+@media(max-width:760px){
+  body.has-pro-ad #ms{padding-bottom:34vh}
+  .pro-adbar{height:34vh;min-height:230px}
+  .pro-ad-inner{grid-template-columns:1fr;gap:.6rem;padding:.75rem 1rem}
+  .pro-ad-list{grid-template-columns:1fr 1fr;gap:.35rem .75rem}
+  .pro-ad-actions{flex-direction:row;justify-content:space-between;width:100%}
+  .pro-ad-actions .pro-btn{width:auto;flex:1}
+  .pro-ad-sub{text-align:right}
+  .pro-features-grid{grid-template-columns:1fr}
+}
 @media(max-width:640px){
   .toolbar{gap:.375rem}
   .sw{max-width:100%;min-width:0;flex:1}
@@ -641,7 +750,7 @@ svg.sparkline{display:block;width:100%;height:60px}
     <div class="tbl-wrap">
       <div id="sq-state" class="tbl-state">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
         </svg>
         <h3>Kader laden</h3>
         <p>Wähle eine Liga und lade deinen Kader</p>
@@ -667,6 +776,86 @@ svg.sparkline{display:block;width:100%;height:60px}
 
 </div><!-- /ms -->
 
+<!-- ─── UNTERE 30% PRO-WERBUNG ─── -->
+<aside class="pro-adbar" id="pro-adbar" aria-label="Hinweis zur Pro-Version">
+  <div class="pro-ad-inner">
+    <div>
+      <div class="pro-ad-badge">Exklusives Upgrade</div>
+      <div class="pro-ad-title">Pro-Version</div>
+    </div>
+    <div>
+      <div class="pro-ad-desc">Erweitere deinen Handlungsspielraum mit tieferen Einblicken und ohne Werbeunterbrechungen:</div>
+      <ul class="pro-ad-list">
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Werbefreie Nutzung
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Startelfwahrscheinlichkeiten
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Intelligentes Preis-Leistungs-Verhältnis
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Früherer Zugang zu neuen Funktionen
+        </li>
+      </ul>
+    </div>
+    <div class="pro-ad-actions">
+      <button type="button" class="pro-btn" id="pro-banner-btn">Vorteile ansehen</button>
+      <div class="pro-ad-sub">Freischaltung für ausgewählten Nutzerkreis</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── 30-SEKUNDEN POP-UP MODAL ─── -->
+<div class="pro-popup-backdrop" id="pro-modal" role="dialog" aria-modal="true" aria-labelledby="pro-modal-title">
+  <div class="pro-popup">
+    <button class="pro-popup-close" id="pro-modal-close" aria-label="Schließen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="pro-popup-tag">Upgrade-Hinweis</div>
+    <h2 id="pro-modal-title">Pro-Version freischalten</h2>
+    <p>Erhalte Zugriff auf erweiterte Analysefunktionen und optimiere deine Entscheidungen mit präzisen Daten.</p>
+    
+    <div class="pro-features-grid">
+      <div class="pro-feature-card">
+        <strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Werbefreiheit
+        </strong>
+        <span>Voller Fokus auf Kader und Markt ohne Unterbrechungen.</span>
+      </div>
+      <div class="pro-feature-card">
+        <strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Startelf-Chancen
+        </strong>
+        <span>Detaillierte Startelfwahrscheinlichkeiten für jeden Spieltag.</span>
+      </div>
+      <div class="pro-feature-card">
+        <strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Intelligentes P/L
+        </strong>
+        <span>Algorithmen zur schnellen Ermittlung des Preis-Leistungs-Verhältnisses.</span>
+      </div>
+      <div class="pro-feature-card">
+        <strong>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Early Access
+        </strong>
+        <span>Früherer Zugang zu sämtlichen kommenden Neuerungen.</span>
+      </div>
+    </div>
+
+    <button type="button" class="pro-btn" id="pro-modal-action-btn">Vorteile sichern</button>
+  </div>
+</div>
+
 <div class="drawer-backdrop" id="dbk"></div>
 <aside class="drawer" id="drawer" aria-label="Spielerdetails">
   <div class="drawer-close">
@@ -690,11 +879,11 @@ const STCSS = {0:'bdg-st-fit',1:'bdg-st-out',2:'bdg-st-out',4:'bdg-st-out',8:'bd
 
 /* Startelf-Wahrscheinlichkeit ("prob"): 1 Sicher … 5 Ausgeschlossen */
 const PROB_META = {
-  1:{label:'Sicher',         sym:'★', cls:'prob-1', factor:1.0},
-  2:{label:'Wahrscheinlich', sym:'✓', cls:'prob-2', factor:0.85},
-  3:{label:'Unsicher',       sym:'?', cls:'prob-3', factor:0.7},
-  4:{label:'Unwahrscheinlich',sym:'!', cls:'prob-4', factor:0.5},
-  5:{label:'Ausgeschlossen', sym:'✕', cls:'prob-5', factor:0.25},
+  1:{label:'Sicher',         sym:'Upgrade', cls:'prob-1', factor:0.8},
+  2:{label:'Wahrscheinlich', sym:'Upgrade', cls:'prob-2', factor:0.8},
+  3:{label:'Unsicher',       sym:'Upgrade', cls:'prob-3', factor:0.8},
+  4:{label:'Unwahrscheinlich',sym:'Upgrade', cls:'prob-4', factor:0.8},
+  5:{label:'Ausgeschlossen', sym:'Upgrade', cls:'prob-5', factor:0.8},
 };
 
 let TKN='', LEAGUES=[], UID='', PROXY=false;
@@ -718,6 +907,14 @@ tBtn.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';applyThem
 function show(id){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
   document.getElementById(id).classList.add('on');
+  if (id === 'ms') {
+    document.body.classList.add('has-pro-ad');
+    document.getElementById('pro-adbar').classList.add('vis');
+  } else {
+    document.body.classList.remove('has-pro-ad');
+    document.getElementById('pro-adbar').classList.remove('vis');
+    closeProModal();
+  }
 }
 
 let activeTab='market';
@@ -1086,7 +1283,7 @@ const drawer=document.getElementById('drawer');
 const drawerBk=document.getElementById('dbk');
 drawerBk.addEventListener('click',closeDrawer);
 document.getElementById('drawer-close').addEventListener('click',closeDrawer);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeProModal();}});
 
 function openDrawer(p){
   document.getElementById('drawer-content').innerHTML='<div class="spg"></div>';
@@ -1353,6 +1550,37 @@ function probBadgeFull(prob){
   if(!m)return'';
   return `<span class="bdg bdg-${m.cls}" title="Startelf-Wahrscheinlichkeit">${m.sym} ${esc(m.label)}</span>`;
 }
+
+/* ─── PRO-WERBUNG & 30-SEKUNDEN POPUP CONTROLLER ─────────── */
+const proModal = document.getElementById('pro-modal');
+const proModalClose = document.getElementById('pro-modal-close');
+const proBannerBtn = document.getElementById('pro-banner-btn');
+const proActionBtn = document.getElementById('pro-modal-action-btn');
+
+function openProModal(){
+  if(!TKN) return;
+  proModal.classList.add('on');
+}
+function closeProModal(){
+  proModal.classList.remove('on');
+}
+
+proModalClose.addEventListener('click', closeProModal);
+proModal.addEventListener('click', e => {
+  if (e.target === proModal) closeProModal();
+});
+proBannerBtn.addEventListener('click', openProModal);
+proActionBtn.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('pro-upgrade-request', { detail: { source: 'popup' } }));
+  closeProModal();
+});
+
+// Alle 30 Sekunden Pop-up anzeigen (wenn eingeloggt und Tab aktiv)
+setInterval(() => {
+  if (TKN && !document.hidden && !proModal.classList.contains('on')) {
+    openProModal();
+  }
+}, 30000);
 </script>
 </body>
 </html>
