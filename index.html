@@ -128,7 +128,7 @@ header{
 .em.on{display:block}
 
 #ms{flex:1;overflow:hidden;min-height:0}
-body.has-pro-ad #ms{padding-bottom:30vh}
+body.has-pro-ad #ms{padding-bottom:34vh}
 .tab-pane{display:none;height:100%;overflow:hidden}
 .tab-pane.on{display:flex;flex-direction:column}
 
@@ -272,6 +272,14 @@ table.ptbl td.num{text-align:right;font-variant-numeric:tabular-nums}
 .bdg-prob-3{background:color-mix(in oklab,var(--gold) 16%,transparent);color:var(--gold);border-color:color-mix(in oklab,var(--gold) 32%,transparent)}
 .bdg-prob-4{background:var(--erbg);color:var(--er);border-color:color-mix(in oklab,var(--er) 25%,transparent)}
 .bdg-prob-5{background:var(--off);color:var(--mt);border-color:var(--div)}
+.prob-badge.prob-upgrade{
+  width:auto;height:auto;border-radius:var(--rf);padding:.2rem .55rem;
+  font-size:.625rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+  background:var(--phl2);color:var(--pr);cursor:pointer;transition:background var(--t);
+}
+.prob-badge.prob-upgrade:hover{background:var(--phl)}
+.bdg-upgrade{background:var(--phl2);color:var(--pr);border-color:color-mix(in oklab,var(--pr) 25%,transparent);cursor:pointer;transition:background var(--t)}
+.bdg-upgrade:hover{background:var(--phl)}
 
 .trend-up{color:#15803d}
 .trend-dn{color:var(--er)}
@@ -442,7 +450,7 @@ svg.sparkline{display:block;width:100%;height:60px}
 
 /* ─── PRO WERBUNG & POP-UP STYLES ─────────────────────────── */
 .pro-adbar{
-  position:fixed;left:0;right:0;bottom:0;height:30vh;min-height:190px;
+  position:fixed;left:0;right:0;bottom:0;height:34vh;min-height:215px;
   z-index:75;overflow-y:auto;overflow-x:hidden;
   background:linear-gradient(135deg,#121316 0%,#201d1a 50%,#2b1a14 100%);
   color:#f4f4f5;border-top:2px solid color-mix(in oklab,var(--pr) 50%,transparent);
@@ -464,18 +472,18 @@ svg.sparkline{display:block;width:100%;height:60px}
   content:'';width:7px;height:7px;border-radius:50%;background:var(--pr);box-shadow:0 0 8px var(--pr);
 }
 .pro-ad-title{
-  font-size:clamp(1.15rem,1.8vw,1.6rem);font-weight:900;letter-spacing:-.03em;
+  font-size:clamp(1.25rem,2vw,1.75rem);font-weight:900;letter-spacing:-.03em;
   line-height:1.15;color:#fff;
 }
 .pro-ad-desc{
-  font-size:.825rem;line-height:1.45;color:rgba(255,255,255,.75);margin-bottom:.6rem;
+  font-size:.875rem;line-height:1.45;color:rgba(255,255,255,.75);margin-bottom:.6rem;
 }
 .pro-ad-list{
-  display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:.45rem 1.25rem;
+  display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:.5rem 1.25rem;
   list-style:none;padding:0;margin:0;
 }
 .pro-ad-list li{
-  font-size:.8rem;color:rgba(255,255,255,.92);display:flex;gap:.5rem;align-items:center;
+  font-size:.85rem;color:rgba(255,255,255,.92);display:flex;gap:.5rem;align-items:center;
 }
 .pro-ad-list li svg{
   color:var(--pr);flex-shrink:0;
@@ -484,8 +492,8 @@ svg.sparkline{display:block;width:100%;height:60px}
   display:flex;flex-direction:column;align-items:center;gap:.45rem;min-width:180px;
 }
 .pro-btn{
-  width:100%;padding:.65rem 1rem;background:var(--pr);color:#fff;
-  border-radius:var(--rm);font-weight:800;font-size:.85rem;letter-spacing:-.01em;
+  width:100%;padding:.75rem 1.1rem;background:var(--pr);color:#fff;
+  border-radius:var(--rm);font-weight:800;font-size:.9rem;letter-spacing:-.01em;
   text-align:center;transition:background var(--t),transform var(--t),box-shadow var(--t);
   box-shadow:0 4px 14px rgba(255,70,0,.35);
 }
@@ -537,9 +545,39 @@ svg.sparkline{display:block;width:100%;height:60px}
   font-size:.72rem;color:var(--mt);line-height:1.35;
 }
 
+/* Sitzungslimit-Sperrbildschirm (3 Minuten) */
+.pro-lock-backdrop{
+  position:fixed;inset:0;z-index:250;background:rgba(0,0,0,.78);
+  backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;
+  padding:1rem;animation:fadein .2s ease;
+}
+.pro-lock-backdrop.on{display:flex}
+.pro-lock-box{
+  position:relative;width:100%;max-width:420px;text-align:center;
+  background:linear-gradient(135deg,#121316 0%,#201d1a 50%,#2b1a14 100%);
+  border:1px solid color-mix(in oklab,var(--pr) 40%,transparent);
+  border-radius:var(--rxl);box-shadow:var(--sh2);padding:1.75rem 1.5rem;color:#f4f4f5;
+}
+.pro-lock-icon{
+  width:48px;height:48px;margin:0 auto .9rem;border-radius:50%;
+  background:var(--phl2);color:var(--pr);display:flex;align-items:center;justify-content:center;
+}
+.pro-lock-tag{
+  font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--pr);margin-bottom:.4rem;
+}
+.pro-lock-box h2{font-size:1.4rem;font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.6rem}
+.pro-lock-box p{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:1.25rem}
+.pro-lock-relogin{
+  display:block;width:100%;margin-top:.6rem;padding:.6rem 1rem;
+  font-size:.8rem;font-weight:600;color:rgba(255,255,255,.6);
+  border-radius:var(--rm);transition:color var(--t),background var(--t);
+}
+.pro-lock-relogin:hover{color:#fff;background:rgba(255,255,255,.08)}
+
 @media(max-width:760px){
-  body.has-pro-ad #ms{padding-bottom:34vh}
-  .pro-adbar{height:34vh;min-height:230px}
+  body.has-pro-ad #ms{padding-bottom:38vh}
+  .pro-adbar{height:38vh;min-height:255px}
   .pro-ad-inner{grid-template-columns:1fr;gap:.6rem;padding:.75rem 1rem}
   .pro-ad-list{grid-template-columns:1fr 1fr;gap:.35rem .75rem}
   .pro-ad-actions{flex-direction:row;justify-content:space-between;width:100%}
@@ -856,6 +894,20 @@ svg.sparkline{display:block;width:100%;height:60px}
   </div>
 </div>
 
+<!-- ─── 3-MINUTEN NUTZUNGSLIMIT (SPERRBILDSCHIRM) ─── -->
+<div class="pro-lock-backdrop" id="pro-lock" role="dialog" aria-modal="true" aria-labelledby="pro-lock-title">
+  <div class="pro-lock-box">
+    <div class="pro-lock-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    </div>
+    <div class="pro-lock-tag">Nutzungslimit erreicht</div>
+    <h2 id="pro-lock-title">Deine 3 Minuten sind um</h2>
+    <p>In der kostenlosen Version ist eine Sitzung auf 3 Minuten begrenzt. Mit der Pro-Version nutzt du den Kickbase Manager ohne Zeitlimit und ohne Werbeunterbrechungen.</p>
+    <button type="button" class="pro-btn" id="pro-lock-action-btn">Jetzt upgraden</button>
+    <button type="button" class="pro-lock-relogin" id="pro-lock-relogin-btn">Neu anmelden</button>
+  </div>
+</div>
+
 <div class="drawer-backdrop" id="dbk"></div>
 <aside class="drawer" id="drawer" aria-label="Spielerdetails">
   <div class="drawer-close">
@@ -879,11 +931,11 @@ const STCSS = {0:'bdg-st-fit',1:'bdg-st-out',2:'bdg-st-out',4:'bdg-st-out',8:'bd
 
 /* Startelf-Wahrscheinlichkeit ("prob"): 1 Sicher … 5 Ausgeschlossen */
 const PROB_META = {
-  1:{label:'Sicher',         sym:'Upgrade', cls:'prob-1', factor:0.8},
-  2:{label:'Wahrscheinlich', sym:'Upgrade', cls:'prob-2', factor:0.8},
-  3:{label:'Unsicher',       sym:'Upgrade', cls:'prob-3', factor:0.8},
-  4:{label:'Unwahrscheinlich',sym:'Upgrade', cls:'prob-4', factor:0.8},
-  5:{label:'Ausgeschlossen', sym:'Upgrade', cls:'prob-5', factor:0.8},
+  1:{label:'Sicher',         sym:'★', cls:'prob-1', factor:1.0},
+  2:{label:'Wahrscheinlich', sym:'✓', cls:'prob-2', factor:0.85},
+  3:{label:'Unsicher',       sym:'?', cls:'prob-3', factor:0.7},
+  4:{label:'Unwahrscheinlich',sym:'!', cls:'prob-4', factor:0.5},
+  5:{label:'Ausgeschlossen', sym:'✕', cls:'prob-5', factor:0.25},
 };
 
 let TKN='', LEAGUES=[], UID='', PROXY=false;
@@ -1004,10 +1056,11 @@ document.getElementById('lf').addEventListener('submit',async e=>{
   document.getElementById('htabs').style.display='';
   fillLeagueSelects();
   show('ms');
+  startSessionTimer();
   await loadMarket(mState.lid||LEAGUES[0]?.id||'');
 });
 
-document.getElementById('lb').addEventListener('click',()=>{
+function doLogout(){
   TKN='';LEAGUES=[];UID='';BUDGET=null;
   MARKET_CACHE={};SQUAD_CACHE={};LEAGUE_BUDGETS={};
   mState={lid:'',all:[],filtered:[],posF:'',search:'',sort:'mv-desc',sortDir:1};
@@ -1022,8 +1075,11 @@ document.getElementById('lb').addEventListener('click',()=>{
   document.getElementById('sq-budget-card').style.display='none';
   document.getElementById('sq-stats').style.display='none';
   closeDrawer();
+  clearSessionTimer();
+  unlockSession();
   show('ls');
-});
+}
+document.getElementById('lb').addEventListener('click',doLogout);
 
 function fillLeagueSelects(){
   ['m-lsel','sq-lsel'].forEach(id=>{
@@ -1075,7 +1131,7 @@ async function loadMarket(lid){
   }catch(ex){
     stEl.innerHTML=`<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><h3>Fehler beim Laden</h3><p>${esc(ex.message)}</p>`;
     stEl.style.display='flex';
-    if(ex.status===401){TKN='';show('ls')}
+    if(ex.status===401){TKN='';clearSessionTimer();unlockSession();show('ls')}
   }
 }
 
@@ -1123,7 +1179,7 @@ async function loadSquad(lid){
   }catch(ex){
     stEl.innerHTML=`<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><h3>Fehler beim Laden</h3><p>${esc(ex.message)}</p>`;
     stEl.style.display='flex';
-    if(ex.status===401){TKN='';show('ls')}
+    if(ex.status===401){TKN='';clearSessionTimer();unlockSession();show('ls')}
   }
 }
 
@@ -1513,7 +1569,7 @@ function fmtDate(iso){if(!iso)return'';try{return new Date(iso).toLocaleDateStri
 function calcPLV(ap,mv,prob){
   if(ap==null||!mv)return null;
   const base=(ap/(mv*0.000004))*100;
-  const factor=PROB_META[prob]?PROB_META[prob].factor:1;
+  const factor=0.8;
   return base*factor;
 }
 
@@ -1541,14 +1597,12 @@ function fmtPLV(v){
 
 function plvCls(v){if(v==null)return'';return v>=100?'plv-good':'plv-bad'}
 function probBadge(prob){
-  const m=PROB_META[prob];
-  if(!m)return'<span style="color:var(--ft)">–</span>';
-  return `<span class="prob-badge ${m.cls}" title="Startelf-Wahrscheinlichkeit: ${esc(m.label)}">${m.sym}</span>`;
+  if(prob==null)return'<span style="color:var(--ft)">–</span>';
+  return `<span class="prob-badge prob-upgrade" title="Startelf-Wahrscheinlichkeit: nur in der Pro-Version" onclick="openProModal()">Upgrade</span>`;
 }
 function probBadgeFull(prob){
-  const m=PROB_META[prob];
-  if(!m)return'';
-  return `<span class="bdg bdg-${m.cls}" title="Startelf-Wahrscheinlichkeit">${m.sym} ${esc(m.label)}</span>`;
+  if(prob==null)return'';
+  return `<span class="bdg bdg-upgrade" title="Startelf-Wahrscheinlichkeit: nur in der Pro-Version" onclick="openProModal()">Upgrade</span>`;
 }
 
 /* ─── PRO-WERBUNG & 30-SEKUNDEN POPUP CONTROLLER ─────────── */
@@ -1558,7 +1612,7 @@ const proBannerBtn = document.getElementById('pro-banner-btn');
 const proActionBtn = document.getElementById('pro-modal-action-btn');
 
 function openProModal(){
-  if(!TKN) return;
+  if(!TKN || sessionLocked) return;
   proModal.classList.add('on');
 }
 function closeProModal(){
@@ -1575,12 +1629,42 @@ proActionBtn.addEventListener('click', () => {
   closeProModal();
 });
 
-// Alle 30 Sekunden Pop-up anzeigen (wenn eingeloggt und Tab aktiv)
+// Alle 30 Sekunden Pop-up anzeigen (wenn eingeloggt, Tab aktiv und Sitzung nicht gesperrt)
 setInterval(() => {
-  if (TKN && !document.hidden && !proModal.classList.contains('on')) {
+  if (TKN && !document.hidden && !sessionLocked && !proModal.classList.contains('on')) {
     openProModal();
   }
 }, 30000);
+
+/* ─── 3-MINUTEN NUTZUNGSLIMIT (SESSION-SPERRE) ───────────── */
+const proLock = document.getElementById('pro-lock');
+const proLockActionBtn = document.getElementById('pro-lock-action-btn');
+const proLockReloginBtn = document.getElementById('pro-lock-relogin-btn');
+const SESSION_LIMIT_MS = 3 * 60 * 1000; // 3 Minuten Nutzungslimit für die kostenlose Version
+let sessionLockTimer = null;
+let sessionLocked = false;
+
+function startSessionTimer(){
+  clearSessionTimer();
+  sessionLockTimer = setTimeout(lockSession, SESSION_LIMIT_MS);
+}
+function clearSessionTimer(){
+  if (sessionLockTimer){ clearTimeout(sessionLockTimer); sessionLockTimer = null; }
+}
+function lockSession(){
+  sessionLocked = true;
+  closeProModal();
+  proLock.classList.add('on');
+}
+function unlockSession(){
+  sessionLocked = false;
+  proLock.classList.remove('on');
+}
+
+proLockActionBtn.addEventListener('click', () => {
+  document.dispatchEvent(new CustomEvent('pro-upgrade-request', { detail: { source: 'session-lock' } }));
+});
+proLockReloginBtn.addEventListener('click', doLogout);
 </script>
 </body>
 </html>
